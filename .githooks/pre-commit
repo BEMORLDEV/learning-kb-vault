@@ -1,0 +1,8 @@
+#!/bin/sh
+# Blocks the commit if staged files contain unapproved PII. Fails closed.
+root="$(git rev-parse --show-toplevel)" || exit 1
+if ! command -v dotnet >/dev/null 2>&1; then
+  echo "PII scan: dotnet not found on PATH. Commit blocked." >&2
+  exit 1
+fi
+dotnet run --project "$root/.githooks/PiiScan" -c Release -v q -- --staged
