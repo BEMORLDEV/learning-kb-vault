@@ -24,6 +24,7 @@ It is not the reference library. The test:
 
 - Vault: `C:\ObsidianVaults\LearningKB`. Private GitHub repo `BEMORLDEV/learning-kb-vault`, branch `main`.
 - The vault is private and will never be shared or published.
+- Claude's workspace (files, not facts, not in git): `C:\CLAUDE\Projects\LearningKB`. Session recaps go in its `Sessions\` folder and a running `MANIFEST.md`, written by the retire-learningkb-thread skill. Sessions are never recorded in the vault (decided 2026-09-30).
 - Plugins and their settings: [[Obsidian-Plugins]].
 - Templates: `_templates/`.
 
