@@ -20,6 +20,8 @@ The plugins this vault runs and why. Follows [[Obsidian-Plugin-Tracking]]. Plugi
 
 If Obsidian Git is off, nothing is committed until Breck commits by hand.
 
+After changing Obsidian Git settings, restart Obsidian. On 2026-09-30 the 15-minute timer did not start until a restart. The first commit from inside Obsidian (Commit-and-sync from the command palette) worked, and the PII hook ran on it.
+
 If Custom Attachment Location or Advanced Rename and Delete Handler is off, pasted images land wherever Obsidian's default says and renames leave attachment folders behind.
 
 ## Settings screenshots
@@ -79,7 +81,6 @@ The other core plugins are Obsidian defaults and aren't tracked here.
 ## Open questions
 
 - Fill in why Omnisearch is here.
-- Obsidian Git: confirm the first auto-commit works (`git log -1 --oneline`). If it fails, check that the hook can find `dotnet`.
 - Omnisearch: turn on PDF indexing if course material comes in as PDFs?
 - Generated attachment file name: keep `file-<timestamp>` and rename by hand, or add the note name as a prefix?
 - Sync and Bases: keep or turn off?

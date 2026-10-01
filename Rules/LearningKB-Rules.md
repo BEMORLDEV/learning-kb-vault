@@ -61,7 +61,8 @@ Inside each lesson note, content is grouped by how the course presented it:
 
 Leave out sections a lesson doesn't have.
 
-- Summarize by default. Short quotes are fine where the wording matters.
+- Every lesson note starts with a short **Summary**. Below it, keep everything: capture the lesson in full, not condensed (decided 2026-09-30).
+- Short quotes are fine where the wording matters.
 - Breck's own commentary goes in a note callout: `> [!note] Note`.
 - Anything that looks wrong, dated or at odds with official docs goes in a warning callout: `> [!warning] Flag`. Record it; never quietly correct it.
 - If a lesson skips something important, flag the gap.
@@ -128,7 +129,6 @@ Ideas discussed 2026-09-30 and parked until capture is working. None of these ar
 
 ## Open questions
 
-- Summaries, or capture closer to verbatim since the vault is private?
-- Move the Claude 101 and Coursiv material from the "Claude Knowledge Base" claude.ai project into this vault. Its LinkedIn staging goes to JobSearch.
+- Claude 101 moved in on 2026-09-30 ([[Claude-101]]). Still to move from the "Claude Knowledge Base" claude.ai project: the Coursiv course notes, the course roster and suggested order (into [[Learning-Plan]]), and the certificate tracker. Its LinkedIn staging goes to JobSearch.
 - New claude.ai project for LearningKB, or convert "Claude Knowledge Base"?
 - Books: same parent and child pattern (a note per chapter)?
