@@ -6,85 +6,94 @@ updated: 2026-09-30
 
 # LearningKB rules
 
-Rules for this vault. Read this before working here. Decisions recorded 2026-09-30.
+Rules for this vault. Read this before working here.
+
+The focus for now is **capture**: record what training courses present, in the forms they present it. How to reuse that content (quizzes, question banks, study plans) is decided later. See Later below.
 
 ## What this vault is for
 
-LearningKB tracks what Breck is learning: tracks, courses, books, certifications, resources, progress, study plans and a private question bank.
+LearningKB holds what Breck is learning: course content as it was presented, topics he wants to explore, and a rough plan for what to pursue.
 
 It is not the reference library. The test:
 
-- If a fact is about Breck learning something (progress, plans, what's hard, what's next), it goes here.
-- If a fact would be true for anyone (how a service, language or pattern works), it goes in TechKB (`C:\ObsidianVaults\TechKB`). The course or book note links to it.
-- Anything about Breck's career, roles or applications goes in JobSearch.
+- If it's course content, or about Breck learning something (progress, plans, topics to explore), it goes here.
+- If a fact would be true for anyone and stands on its own (how a service, language or pattern works), it goes in TechKB (`C:\ObsidianVaults\TechKB`), and the lesson note can link to it.
+- Anything about Breck's career, roles, applications or LinkedIn goes in JobSearch.
 
 ## Where things live
 
 - Vault: `C:\ObsidianVaults\LearningKB`. Private GitHub repo `BEMORLDEV/learning-kb-vault`, branch `main`.
 - The vault is private and will never be shared or published.
 - Plugins and their settings: [[Obsidian-Plugins]].
+- Templates: `_templates/`.
 
-## Note types
+## Capture
 
-One note per thing. Edit in place; git keeps history. No `_v2` files, addenda or session-recap files.
+### Structure
 
-| Type | What it is |
-|---|---|
-| Track | A learning goal that groups the rest, for example "Azure AI". Holds the learning plan. |
-| Course | One course or learning path. Progress goes here as dated log lines. |
-| Book | One book. Tracked separately from tracks. |
-| Certification | One exam or credential. |
-| Resource | Docs, labs, videos or articles worth keeping. |
-| Question bank | Practice questions, linked from the course they came from. |
+Each course gets a folder with a parent note and one child note per lesson.
 
-Templates for each type will go in `_templates/`.
-
-## Learning plan framework
-
-Each Track note holds its plan, built in five steps.
-
-1. **Define.** The goal is something Breck can do, not just know. Record why (job search, current work, certification, curiosity), what "done" means, and a target date if there is one.
-2. **Assess.** A short baseline: what's known, what's fuzzy, what's new. For a certification, take a practice test cold and start with the misses.
-3. **Plan.** Resources (each linked to its own note), 3 to 6 milestones tied to evidence, and a realistic weekly cadence.
-4. **Execute.** Progress goes in dated log lines on the Course or Book note. General knowledge goes to TechKB. Practice questions go to the question bank.
-5. **Review.** A quick weekly check of what moved and what's stuck. Adjust at each milestone. At the end, mark the track done and record the proof: the cert, a project repo or a MaassBytes post.
-
-Track status values: `idea`, `queued`, `active`, `paused`, `done`, `dropped`.
-
-Track frontmatter fields: `type`, `status`, `goal`, `why`, `done_when`, `target_date`, `cadence`, `next_action`, `next_action_due`, `last_activity`, `proof`.
-
-### Active tracks: a soft limit
-
-Aim for about 5 active tracks at a time. This is a guideline, not a rule. When adding a track would go past 5, Claude mentions it once and asks whether to pause something or go ahead. Either answer is fine. Books don't count toward the 5.
-
-## Question bank
-
-- Practice questions and answers taken from course material are welcome. They stay in this private vault.
-- No real exam content: nothing covered by a certification exam NDA and nothing from exam dump sites.
-- Every question records where it came from, for example `source: "AI-103 course, Module 3, Lesson 2"`. Questions Claude writes say so.
-
-### Verification
-
-Each question carries:
-
-```yaml
-source: "Course, module, lesson"
-verified: no        # yes, no or disputed
-verified_against: "" # link to the official doc used
-last_verified:       # YYYY-MM-DD
+```
+Courses/
+  Claude-101/
+    Claude-101.md                      parent
+    Claude-101 1.1 What is Claude.md   one per lesson
 ```
 
-- Check answers against the vendor's official documentation and record the link.
-- If the course answer and the docs disagree, mark it `disputed` and keep both answers. Breck decides. Don't quietly change the course's answer.
-- Some questions have no single doc to check against. Mark them `no` with a short note.
-- `verified: no` is fine for a new question. Verify at capture when it's cheap, and re-check old ones in batches.
+- **Parent note** (template `_templates/Course.md`): what the course is, provider, status, source link, certificate, an outline of every lesson, and the course's open `#explore` flags.
+- **Lesson notes** (template `_templates/Lesson.md`): one per lesson. Frontmatter links back to the parent.
+- A large lesson can be split further into subtopic notes in the same folder, named with the lesson ID, for example `Claude-101 2.2a Artifact types`.
+- Note names start with the course slug, so lessons from different courses never share a name.
+- Lesson IDs are `<module>.<lesson>`, so `1.2` is Module 1, Lesson 2.
+- This is a trial (started 2026-09-30). Adjust once a course or two has been captured.
+
+### How content is recorded
+
+Inside each lesson note, content is grouped by how the course presented it:
+
+| Section | What goes there |
+|---|---|
+| Written | The lesson text, summarized. |
+| Video | The transcript or key points. |
+| Visual | Screenshots and diagrams, with a caption and source. |
+| Knowledge check | The course's own questions and answers, as the course gave them. |
+| Lab or exercise | What was asked, briefly. |
+
+Leave out sections a lesson doesn't have.
+
+- Summarize by default. Short quotes are fine where the wording matters.
+- Breck's own commentary goes in a note callout: `> [!note] Note`.
+- Anything that looks wrong, dated or at odds with official docs goes in a warning callout: `> [!warning] Flag`. Record it; never quietly correct it.
+- If a lesson skips something important, flag the gap.
+- Third-party courses (not from the product's vendor) set `first_party: false` and carry a Flag callout at the top of the parent note.
+
+## Planning
+
+### Flagging topics to explore
+
+While capturing, flag anything worth exploring as a task, right where it came up:
+
+```markdown
+- [ ] #explore MCP sampling: how does the client approve requests?
+```
+
+Tick the box when it's handled or no longer interesting.
+
+### The learning plan
+
+[[Learning-Plan]] at the vault root holds a rough plan:
+
+- **Flagged topics:** every open `#explore` task in the vault, collected by Dataview.
+- **Now, Next, Someday:** short lists Breck arranges by hand. Each item gets a line on why it matters and a rough target if there is one.
+
+Aim for about 5 items in Now. This is a soft limit: when adding one would go past 5, Claude mentions it once and asks. Either answer is fine. Books don't count.
 
 ## Attachments
 
-- Pasted images and files go in `_attachments/<note name>/`, set by the Custom Attachment Location plugin. Subfolders match Course or Book notes, not Tracks.
-- Name images with a note prefix and a short description, no spaces, for example `ai-103_m3-rag-architecture.png`.
+- Pasted images and files go in `_attachments/<course folder>/`, set by the Custom Attachment Location plugin.
+- Give images a descriptive name, no spaces, for example `claude-101_1-2-artifact-panel.png`.
 - Put a one-line caption with the source under each image.
-- Prefer Mermaid for diagrams you create. It's text, so it diffs cleanly and Claude can edit it. Use screenshots for things that are really visual.
+- Prefer Mermaid for diagrams you create. Use screenshots for things that are really visual.
 - Keep images reasonably small. Compress before committing.
 - **Redact screenshots before saving them, and never take screenshots from work systems.** The PII scan skips images in `_attachments/`, so nothing else checks them.
 
@@ -93,6 +102,7 @@ last_verified:       # YYYY-MM-DD
 - A pre-commit PII scan runs on every commit (`.githooks/`, see its README). It's a copy of TechKB's with one change: images under `_attachments/` are skipped.
 - Never suggest `--no-verify` or turning hooks off.
 - Run the scan's `--all` audit before any bulk import and show Breck the findings. Pause Obsidian Git auto-commit during bulk imports.
+- No real exam content: nothing covered by a certification exam NDA and nothing from exam dump sites.
 
 ## How Claude works here
 
@@ -106,9 +116,19 @@ last_verified:       # YYYY-MM-DD
 - Present choices as options. Breck decides.
 - Give exact commands and say where to run each one (machine, folder, shell).
 
+## Later
+
+Ideas discussed 2026-09-30 and parked until capture is working. None of these are rules yet.
+
+- **Full learning plan framework:** define, assess, plan, execute, review, with track statuses, milestones and proof of completion.
+- **Question bank:** store course questions with their source, one note per question.
+- **Verification:** check answers against official docs, with `verified`, `verified_against`, `last_verified`, and `disputed` for conflicts.
+- **Study aids:** Claude generates flashcards and practice questions from the notes on demand instead of storing them. Misses get logged with a date.
+- **Spaced repetition** (phase 2): schedule reviews from the miss log, with a plugin or a Dataview query.
+
 ## Open questions
 
-- Question bank layout: one note per course, one note per question, or flashcards for the Spaced Repetition plugin?
-- Teaching style: should Claude quiz first, have Breck draft first, or neither?
-- Move the Claude 101 training log from the "Claude Knowledge Base" claude.ai project into this vault?
+- Summaries, or capture closer to verbatim since the vault is private?
+- Move the Claude 101 and Coursiv material from the "Claude Knowledge Base" claude.ai project into this vault. Its LinkedIn staging goes to JobSearch.
 - New claude.ai project for LearningKB, or convert "Claude Knowledge Base"?
+- Books: same parent and child pattern (a note per chapter)?
